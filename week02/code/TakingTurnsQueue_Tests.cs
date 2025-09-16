@@ -7,6 +7,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 [TestClass]
 public class TakingTurnsQueueTests
 {
+
+    /*
+         FiniteRepetition error was corrected by checking to see if the person Turns was initially 
+         greater than zero. And it was, the GetNextPerson check to see if the Turn has reached 
+         a zero in order to stop adding the person into the queue.
+    */
     [TestMethod]
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
     // run until the queue is empty
@@ -38,7 +44,12 @@ public class TakingTurnsQueueTests
             i++;
         }
     }
+    
 
+    /*
+      The AddPlayerMidway error is fixed by ensuring that the person is added at the end of the queue
+      rather than the front.
+    */
     [TestMethod]
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
@@ -80,7 +91,12 @@ public class TakingTurnsQueueTests
             i++;
         }
     }
+    
 
+    /*
+      The ForeverZero error, was resolved by ensuring that no Turns below zero get added to the 
+      queue. It is also import to be able to Add person at the back of the queue and not in the Front.
+    */
     [TestMethod]
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
     // Run 10 times.
@@ -112,6 +128,12 @@ public class TakingTurnsQueueTests
         Assert.AreEqual(timTurns, infinitePerson.Turns, "People with infinite turns should not have their turns parameter modified to a very big number. A very big number is not infinite.");
     }
 
+
+    /*
+     ForeverNegative error was fixed by ensuring that the person with an initial zero or negative Turn  is Enqueue 
+     and Dequeue when needed without being removed from the queue.
+     
+    */
     [TestMethod]
     // Scenario: Create a queue with the following people and turns: Tim (Forever), Sue (3)
     // Run 10 times.
@@ -139,7 +161,12 @@ public class TakingTurnsQueueTests
         var infinitePerson = players.GetNextPerson();
         Assert.AreEqual(timTurns, infinitePerson.Turns, "People with infinite turns should not have their turns parameter modified to a very big number. A very big number is not infinite.");
     }
+     
 
+    /* 
+      Empty error message error is fixed by making sure that an Exception is thrown 
+      when making an attempt to Dequeue an empty queue.
+    */
     [TestMethod]
     // Scenario: Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
