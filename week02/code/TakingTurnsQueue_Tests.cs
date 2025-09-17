@@ -9,6 +9,7 @@ public class TakingTurnsQueueTests
 {
 
     /*
+         FiniteRepetition Test Failed.
          FiniteRepetition error was corrected by checking to see if the person Turns was initially 
          greater than zero. And it was, the GetNextPerson check to see if the Turn has reached 
          a zero in order to stop adding the person into the queue.
@@ -47,6 +48,7 @@ public class TakingTurnsQueueTests
     
 
     /*
+      AddPlayerMiday Test Failed.
       The AddPlayerMidway error is fixed by ensuring that the person is added at the end of the queue
       rather than the front.
     */
@@ -94,6 +96,7 @@ public class TakingTurnsQueueTests
     
 
     /*
+      ForeverZero Test Failed.
       The ForeverZero error, was resolved by ensuring that no Turns below zero get added to the 
       queue. It is also import to be able to Add person at the back of the queue and not in the Front.
     */
@@ -130,6 +133,7 @@ public class TakingTurnsQueueTests
 
 
     /*
+     ForeverNegative Test Failed.
      ForeverNegative error was fixed by ensuring that the person with an initial zero or negative Turn  is Enqueue 
      and Dequeue when needed without being removed from the queue.
      
@@ -164,6 +168,7 @@ public class TakingTurnsQueueTests
      
 
     /* 
+      Empty Queue Error Test Failed.
       Empty error message error is fixed by making sure that an Exception is thrown 
       when making an attempt to Dequeue an empty queue.
     */
