@@ -1,5 +1,6 @@
 using System.Text.Json;
 
+
 public static class SetsAndMaps
 {
     /// <summary>
@@ -22,7 +23,20 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> set = new HashSet<string>();
+        List<string> result = new List<string>();
+        foreach(var word in words){
+            if(word[0] == word[1]) continue;
+            string letters = new String(new char[] {word[1], word[0]});
+            if(set.Contains(letters)){
+                string wd = $"{word} & {letters}";
+                result.Add(wd);
+            }else{
+                set.Add(word);
+            }
+        }
+
+        return result.ToArray();
     }
 
     /// <summary>
@@ -43,6 +57,10 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+                if(degrees.ContainsKey(fields[3]))
+                    degrees[fields[3]] += 1;
+                else
+                    degrees[fields[3]] = 1;
         }
 
         return degrees;
@@ -67,7 +85,38 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        word1 = word1.ToLower();
+        word2 = word2.ToLower();
+
+        HashSet<char> set1 = new HashSet<char>();
+        HashSet<char> set2 = new HashSet<char>();
+        Dictionary<char, int> wd1 = new Dictionary<char, int>();
+        Dictionary<char, int> wd2 = new Dictionary<char, int>();
+
+
+
+        foreach(var c in word1){
+             if(c == ' ') continue;
+             set1.Add(c);
+              if(wd1.ContainsKey(c))
+                   wd1[c] += 1;
+              else wd1[c] = 1; 
+        }
+        foreach(var c in word2){
+            if(c == ' ') continue;
+            set2.Add(c);
+              if(wd2.ContainsKey(c))
+                   wd2[c] += 1;
+              else wd2[c] = 1; 
+        }
+
+        if(set1.Count != set2.Count) return false;
+       
+        foreach(var c in set1){
+             if(!set2.Contains(c)) return false;
+             if(wd1[c] != wd2[c]) return false;
+        }
+        return true;
     }
 
     /// <summary>
@@ -95,12 +144,20 @@ public static class SetsAndMaps
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
-
+         
         // TODO Problem 5:
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
         // 3. Return an array of these string descriptions.
-        return [];
+         List<string> results = new List<string>();
+        foreach(var feature in featureCollection.Features){
+            var mag = feature.Properties.Mag;
+            var place = feature.Properties.Place;
+            results.Add($"{place} - Mag {mag}");
+        }
+
+
+        return results.ToArray();
     }
 }
